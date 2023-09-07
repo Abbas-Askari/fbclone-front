@@ -1,0 +1,59 @@
+extends layout 
+
+block content
+    h1 Please login
+
+    //- - if (errors) {} else var errors = [];
+    //- - const errors_username = errors.filter(err => err.path === 'username');
+    //- - const errors_password = errors.filter(err => err.path === 'password');
+    //- - const errors_confirmPassword = errors.filter(err => err.path === 'confirmPassword');
+
+    form(method="post" action="")
+        .form-group
+            label(for="username") Username
+            input(
+                id="username"
+                name="username"
+                type="text"
+                placeholder="Username"
+                value=username?username:""
+                )
+            if errors
+                each error in errors
+                    div.error= error.path === 'username'? error.msg: ""
+
+        .form-group
+            label(for="password") Password
+            input(
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                value=password?password:""
+                ) 
+            if errors
+                each error in errors
+                    div.error= error.path === 'password'? error.msg: ""
+
+        if creating
+            .form-group
+                label(for="confirmPassword") Confirm Password
+                input(
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    placeholder="Confirm password"
+                    value=confirmPassword?confirmPassword:""
+                    ) 
+                if errors
+                    each error in errors
+                        div.error= error.path === 'confirmPassword'? error.msg: ""
+
+        button.login-signup= creating ? "Sign Up" : "Login"
+
+        p(style='text-align: center;') #{creating? "Already" : "Don't"} have an account? #[a(href="/login" + (creating ? "" : "/signup")) #{creating ? "Login" : "Signup"}]
+
+        //- if errors
+        //-     ul.errors-list
+        //-each error in errors 
+        //-             li= error.msg

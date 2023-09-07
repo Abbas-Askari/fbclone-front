@@ -1,5 +1,39 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  if !locals.user
+    h1 Please login
+    a(href="/login") Login
+  else 
+    h1 Welcome, #{user.username}
+
+    a(href="/logout") Logout.
+    br
+    a(href="/login") Login to another account.
+    br
+    a(href="/posts/create") Creat a new post.
+
+  if posts
+    h2 Posts
+    ul
+      each post in posts
+        .post
+          h2.post-title= post.title
+          .post-author !{"Author: "}<a href=!{post.author?post.author.url:""}>!{(post.author? post.author.username: "")}</a>
+          .post-date= "Posted: " + (post.elapsed ? post.elapsed+ " ago" : "")
+          p.post-content= post.content
+
+          .actions
+            button Upvote #{post.votes}
+            button Star
+            -var postUrl = `/posts/${post.id}`;
+            form(method="get" action=postUrl + "/update")
+              button Edit
+            form(method="get" action=postUrl + "/delete")
+              button Delete
+
+
+            
+
+  h1 Locals 
+  p=locals.user

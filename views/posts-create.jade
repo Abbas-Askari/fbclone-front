@@ -1,0 +1,27 @@
+extends layout 
+
+block content 
+    h1 Create a new Post
+
+    form.post-form(method="post" action="")
+        .form-group 
+            label(for="title") Title 
+            input(
+                name="title"
+                id="title"
+                placeholder="Enter title for your post"
+                required="ture"
+                value=post?post.title:""
+            )
+        
+        .form-group 
+            label(for="content") Content 
+            textarea(
+                name="content"
+                id="content"
+                placeholder="Enter content for your post"
+                required="ture"
+            )= post?post.content:""
+        .buttons
+            button(type="button") <a href='/'>Cancel</a>
+            button Post
