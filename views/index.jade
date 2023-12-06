@@ -12,6 +12,8 @@ block content
     a(href="/login") Login to another account.
     br
     a(href="/posts/create") Creat a new post.
+    br
+    a(href=locals.user.id + '/delete') Delete my account
 
   if posts
     h2 Posts
@@ -27,13 +29,9 @@ block content
             button Upvote #{post.votes}
             button Star
             -var postUrl = `/posts/${post.id}`;
-            form(method="get" action=postUrl + "/update")
-              button Edit
-            form(method="get" action=postUrl + "/delete")
-              button Delete
-
-
-            
-
-  h1 Locals 
-  p=locals.user
+            -var privilidgeAccess = locals.user && locals.user.id === post.author.id
+            if privilidgeAccess
+                form(method="get" action=postUrl + "/update")
+                  button Edit
+                form(method="get" action=postUrl + "/delete")
+                  button Delete

@@ -53,7 +53,6 @@ block content
 
         p(style='text-align: center;') #{creating? "Already" : "Don't"} have an account? #[a(href="/login" + (creating ? "" : "/signup")) #{creating ? "Login" : "Signup"}]
 
-        //- if errors
-        //-     ul.errors-list
-        //-each error in errors 
-        //-             li= error.msg
+        if messages
+            - const last = messages[messages.length - 1]
+                div.error= last

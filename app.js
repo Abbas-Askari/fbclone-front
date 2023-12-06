@@ -53,7 +53,11 @@ passport.use(
     try {
       const user = await User.findOne({ username: username });
       if (!user) {
-        return done(null, false, { message: "Incorrect username" });
+        return done(null, false, {
+          message: "Incorrect username",
+          username,
+          password,
+        });
       }
 
       console.log({ username, password, user });
